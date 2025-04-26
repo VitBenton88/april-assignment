@@ -4,6 +4,7 @@ import {
   useCachingFetch,
 } from '../caching-fetch-library/cachingFetch';
 import Person from './Person';
+import { ErrorBoundary } from "react-error-boundary";
 import { validateData } from './validation';
 
 type Application = FC & {
@@ -24,12 +25,12 @@ const App: Application = () => {
   const data = validateData(rawData);
 
   return (
-    <div>
+    <ErrorBoundary fallback={<div>Something went wrong</div>}>
       <h1>Welcome to the People Directory</h1>
       {data.map((person, index) => (
         <Person key={person.email} index={index} />
       ))}
-    </div>
+    </ErrorBoundary>
   );
 };
 
