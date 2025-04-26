@@ -85,9 +85,15 @@ export const useCachingFetch: UseCachingFetch = (url) => {
  *
  */
 export const preloadCachingFetch = async (url: string): Promise<void> => {
-  throw new Error(
-    'preloadCachingFetch has not been implemented, please read the instructions in DevTask.md',
-  );
+  if (cache.has(url)) return;
+
+  try {
+    const res = await fetch(url);
+    const result = await res.json();
+    cache.set(url, result);
+  } catch (error) {
+    console.error('Failed to preload cache.');
+  }
 };
 
 /**
