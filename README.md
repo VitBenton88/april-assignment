@@ -5,3 +5,6 @@
 * Install lint libraries and configure rules.
 * Create base testing suite; install jest libraries, steup configuration, and create a unit test.
 * Cleanup vulnerabilities in npm (audit command).
+
+## "Nice to Haves"
+* Introduce a modern build tool like Vite or Webpack to streamline local development and production builds.
