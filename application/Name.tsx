@@ -21,7 +21,7 @@ const Name: FC<{ index: number }> = ({ index }) => {
 
   return (
     <div>
-      <h2>
+      <h2 data-testid="heading">
         {person.first} {person.last}
       </h2>
     </div>
