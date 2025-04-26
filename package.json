@@ -19,6 +19,7 @@
     "esbuild": "^0.21.3"
   },
   "dependencies": {
+    "dotenv": "^16.5.0",
     "fastify": "^4.27.0",
     "msw": "^2.3.0",
     "react": "^18.3.1",
