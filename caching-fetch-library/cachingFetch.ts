@@ -114,6 +114,15 @@ export const preloadCachingFetch = async (url: string): Promise<void> => {
  */
 export const serializeCache = (): string => JSON.stringify(Array.from(cache.entries()));
 
-export const initializeCache = (serializedCache: string): void => { };
+export const initializeCache = (serializedCache: string): void => {
+  try {
+    const parsed: [string, unknown][] = JSON.parse(serializedCache);
+    for (const [key, value] of parsed) {
+      cache.set(key, value)
+    }
+  } catch {
+    console.error('Failed to initialize cache.');
+  }
+}
 
 export const wipeCache = (): void => cache.clear();
