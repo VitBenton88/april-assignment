@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 // You may edit this file, add new files to support this file,
 // and/or add new dependencies to the project as you see fit.
 // However, you must not change the surface API presented from this file,
@@ -32,14 +34,41 @@ type UseCachingFetch = (url: string) => {
 const cache = new Map<string, unknown>()
 
 export const useCachingFetch: UseCachingFetch = (url) => {
-  return {
-    data: null,
-    isLoading: false,
-    error: new Error(
-      'UseCachingFetch has not been implemented, please read the instructions in DevTask.md',
-    ),
-  };
+  const [data, setData] = useState<unknown>(cache.get(url) ?? null)
+  const [isLoading, setIsLoading] = useState<boolean>(!cache.has(url))
+  const [error, setError] = useState<Error | null>(null)
+
+  useEffect(() => {
+    if (cache.has(url)) return;
+
+    setIsLoading(true);
+
+    const fetchApi = async () => {
+      try {
+        setIsLoading(true)
+
+        const apiFetch = await fetch(url);
+        const { results } = await apiFetch.json();
+
+        cache.set(url, results)
+        setData(results)
+      } catch (error) {
+        if (error instanceof Error) {
+          setError(error);
+        } else {
+          setError(new Error('An unknown error occurred'));
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchApi();
+  }, [url]);
+
+  return { isLoading, data, error };
 };
+
 
 /**
  * 2. Implement a preloading caching fetch function. The function should fetch the data.
