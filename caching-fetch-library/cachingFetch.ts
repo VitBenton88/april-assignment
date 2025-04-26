@@ -116,4 +116,4 @@ export const serializeCache = (): string => JSON.stringify(Array.from(cache.entr
 
 export const initializeCache = (serializedCache: string): void => { };
 
-export const wipeCache = (): void => { };
+export const wipeCache = (): void => cache.clear();
