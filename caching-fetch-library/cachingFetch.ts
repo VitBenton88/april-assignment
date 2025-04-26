@@ -27,6 +27,10 @@ type UseCachingFetch = (url: string) => {
  * 4. This file passes a type-check.
  *
  */
+
+// Map avoids garbage collection and persists on session
+const cache = new Map<string, unknown>()
+
 export const useCachingFetch: UseCachingFetch = (url) => {
   return {
     data: null,
@@ -75,6 +79,6 @@ export const preloadCachingFetch = async (url: string): Promise<void> => {
  */
 export const serializeCache = (): string => '';
 
-export const initializeCache = (serializedCache: string): void => {};
+export const initializeCache = (serializedCache: string): void => { };
 
-export const wipeCache = (): void => {};
+export const wipeCache = (): void => { };
